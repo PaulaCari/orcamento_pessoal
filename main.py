@@ -47,13 +47,12 @@ frameCima = Frame(janela, width=1043, height=50, bg=co0, relief="flat") #co1
 frameCima.grid(row=0,column=0)
 
 # criando 2do frames dividir a tela
-frameMeio = Frame(janela, width=1043, height=361, bg=co0, pady=20, relief="raised")
+frameMeio = Frame(janela, width=1043, height=345, bg=co0, pady=20, relief="raised")
 frameMeio.grid(row=1,column=0, pady=1,padx=0, sticky=NSEW)
 
 # criando 3ro frames dividir a tela
 frameBaixo = Frame(janela, width=1043, height=300, bg=co0, relief="flat")
 frameBaixo.grid(row=2,column=0, pady=0, padx=0, sticky=NSEW)
-
 
 
 #logo imagem frame e title
@@ -186,14 +185,64 @@ def grafico_pie():
     canva_categoria.get_tk_widget().grid(row=0, column=0)
     
 
-
-
-
-
 porcentagem()
 grafico_bar()
 resumo()
 grafico_pie()
+
+#criando 3 frame dentro do frame baixo
+#1ro frame tablela renda tipo excel
+frame_renda = Frame(frameBaixo, width=300, height=250, bg=co0)
+frame_renda.grid(row=0,column=0)
+
+#2do frame renda mensal
+frame_operacoes = Frame(frameBaixo, width=220, height=250, bg=co0) 
+frame_operacoes.grid(row=0,column=1, padx=5)
+
+#3er frame
+frame_configuracao = Frame(frameBaixo, width=220, height=250, bg=co0) 
+frame_configuracao.grid(row=0,column=2, padx=5) 
+
+#Renda mensal 1ro
+app_tabela = Label(frameMeio, text=" Tabela Receitas e Despesas", anchor=NW, font=('Verdana'), bg=co0, fg=co5)
+app_tabela.place(x=5,y=300)
+
+
+def mostrar_renda():
+    # #criando uma treeview com barras de rolagem duplas
+    tabela_head = ['#Id','Categoria','Data','Quantia']
+
+    lista_itens = [[0,2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4]]
+
+    global tree
+
+    tree = ttk.Treeview(frame_renda, selectmode="extended",columns=tabela_head, show="headings")
+    # vertical scroll
+    vsb = ttk.Scrollbar(frame_renda, orient="vertical", command=tree.yview)
+    # horizontal scroll
+    hsb = ttk.Scrollbar(frame_renda, orient="horizontal", command=tree.xview)
+
+    tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+    tree.grid(column=0, row=0, sticky='nsew')
+    vsb.grid(column=1, row=0, sticky='ns')
+    hsb.grid(column=0, row=1, sticky='ew')
+
+    hd=["center","center","center", "center"]
+    h=[30,100,100,100] #tamnaho das
+    n=0
+
+    for col in tabela_head:
+        tree.heading(col, text=col.title(), anchor=CENTER)
+        # adjust the column's width to the header string
+        tree.column(col, width=h[n],anchor=hd[n])#aparece a tabela
+        n+=1
+
+    for item in lista_itens:
+        tree.insert('', 'end', values=item)
+       
+
+mostrar_renda()
+
 
 janela.mainloop()   #chamar a tela
 

@@ -1,1 +1,1 @@
-facecolor=None
+ tree.insert('', 'end', values=item)
