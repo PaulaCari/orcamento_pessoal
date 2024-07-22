@@ -268,7 +268,7 @@ combo_categoria_despesas.place(x=110, y=41)#cela criada
 l_cal_despesas= Label(frame_operacoes, text="Data", height=1, anchor=NW, font=('Ivy 10'), bg=co0, fg=co5)
 l_cal_despesas.place(x=10,y=70)
 # caixinha calendario
-e_cal_despesas = DateEntry(frame_operacoes, width=18, background='darkblue', foreground='white', borderwidth=2, year=2024)#largura da cela
+e_cal_despesas = DateEntry(frame_operacoes, width=14, background='darkblue', foreground='white', borderwidth=2, year=2024)#largura da cela
 e_cal_despesas.place(x=110,y=71)#cela criada
 
 # Titulo valor Qtde total
@@ -278,7 +278,7 @@ l_valor_despesas.place(x=10,y=100)
 e_valor_despesas = Entry(frame_operacoes, width=18, justify='left', relief= 'solid' )#largura da cela
 e_valor_despesas.place(x=110,y=101)#cela criada
 
-#button imagem
+#button adicionar
 img_add_despesas = Image.open('add.png')
 img_add_despesas = img_add_despesas.resize((19,19))
 img_add_despesas = ImageTk.PhotoImage(img_add_despesas)
@@ -294,12 +294,66 @@ l_excluir.place(x=10,y=190)
 
 #imagem
 img_delete = Image.open('delete.png')
-img_delete = img_delete.resize((19,19))
+img_delete = img_delete.resize((22,22))
 img_delete = ImageTk.PhotoImage(img_delete)
 
 botao_deletar = Button(frame_operacoes, image=img_delete, text="Deletar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE)
 botao_deletar.place(x=110,y=190)#button criado
  
+
+
+#configuração de receitas
+# 3da frame
+
+L_info = Label(frame_configuracao, text="Insira novas Receitas", height=1, anchor=NW, font=('Verdana 10 bold'), bg=co0, fg=co5)
+L_info.place(x=35, y=10)#deslocamento do titulo
+
+# titulo data 
+l_cal_receitas= Label(frame_configuracao, text="Data", height=1, anchor=NW, font=('Ivy 10'), bg=co0, fg=co5)
+l_cal_receitas.place(x=35, y=40)
+# caixinha calendario
+e_cal_receitas = DateEntry(frame_configuracao, width=14, background='darkblue', foreground='white', borderwidth=2, year=2024)#largura da cela
+e_cal_receitas.place(x=110,y=41)#cela criada
+
+
+# Titulo valor 
+l_valor_receitas= Label(frame_configuracao, text="Qtd Total", height=1, anchor=NW, font=('Ivy 10'), bg=co0, fg=co5)
+l_valor_receitas.place(x=35,y=70)
+#caixinha 
+e_valor_receitas= Entry(frame_configuracao, width=18, justify='left', relief= 'solid' )#largura da cela
+e_valor_receitas.place(x=110,y=71)#cela criada
+
+
+#button adicionar
+img_add_receitas = Image.open('add.png')
+img_add_receitas = img_add_receitas.resize((19,19))
+img_add_receitas = ImageTk.PhotoImage(img_add_receitas)
+
+botao_inserir_receitas = Button(frame_configuracao, image=img_add_receitas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE)
+botao_inserir_receitas .place(x=110,y=111)#button criado
+
+# Titulo categoria
+l_info= Label(frame_configuracao, text="Categoria", height=1, anchor=NW, font=('Ivy 10'), bg=co0, fg=co5)
+l_info.place(x=35,y=160)
+
+
+#caixinha 
+e_categoria = Entry(frame_configuracao, width=18, justify='left', relief= 'solid' )#largura da cela
+e_categoria.place(x=110,y=161)#cela criada
+
+#button adicionar
+img_add_categoria = Image.open('add.png')
+img_add_categoria = img_add_categoria.resize((19,19))
+img_add_categoria = ImageTk.PhotoImage(img_add_categoria)
+
+botao_inserir_categoria = Button(frame_configuracao, image=img_add_categoria, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE)
+botao_inserir_categoria.place(x=110,y=191)#button criado
+
+
+
+ 
+
+
 
 
 
