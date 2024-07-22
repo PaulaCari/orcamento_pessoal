@@ -1,5 +1,4 @@
 # biblioteca para fazer a interfase
-
 from tkinter import * 
 from tkinter import Tk, ttk
 
@@ -15,6 +14,10 @@ import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 
 from matplotlib.ticker import FixedLocator
+
+#Tkcalendario
+from tkcalendar import Calendar, DateEntry
+from datetime import date
 
 # Core da interfase
 co0 = "#2e2d2b"  # Preta
@@ -207,7 +210,6 @@ frame_configuracao.grid(row=0,column=2, padx=5)
 app_tabela = Label(frameMeio, text=" Tabela Receitas e Despesas", anchor=NW, font=('Verdana'), bg=co0, fg=co5)
 app_tabela.place(x=5,y=300)
 
-
 def mostrar_renda():
     # #criando uma treeview com barras de rolagem duplas
     tabela_head = ['#Id','Categoria','Data','Quantia']
@@ -240,8 +242,71 @@ def mostrar_renda():
     for item in lista_itens:
         tree.insert('', 'end', values=item)
        
-
 mostrar_renda()
+
+# 2da frame
+#calendario pip install tkcalendar
+#titulo
+L_info = Label(frame_operacoes, text="Insira novas despesas", height=1, anchor=NW, font=('Verdana 10 bold'), bg=co0, fg=co5)
+L_info.place(x=10,y=10)
+
+#categoria
+l_categoria = Label(frame_operacoes, text="Categoria", height=1, anchor=NW, font=('Ivy 10'), bg=co0, fg=co5)
+l_categoria.place(x=10,y=40)
+
+categoria_funcao = ['viagem' , 'comida']
+categoria =[]
+
+for i in categoria_funcao:
+    categoria.append(i[1])
+
+combo_categoria_despesas = ttk.Combobox(frame_operacoes, width=18, font=('Ivy 10'))#largura da cela
+combo_categoria_despesas['values'] = (categoria)
+combo_categoria_despesas.place(x=110, y=41)#cela criada
+
+# titulo data 
+l_cal_despesas= Label(frame_operacoes, text="Data", height=1, anchor=NW, font=('Ivy 10'), bg=co0, fg=co5)
+l_cal_despesas.place(x=10,y=70)
+# caixinha calendario
+e_cal_despesas = DateEntry(frame_operacoes, width=18, background='darkblue', foreground='white', borderwidth=2, year=2024)#largura da cela
+e_cal_despesas.place(x=110,y=71)#cela criada
+
+# Titulo valor Qtde total
+l_valor_despesas= Label(frame_operacoes, text="Qtd Total", height=1, anchor=NW, font=('Ivy 10'), bg=co0, fg=co5)
+l_valor_despesas.place(x=10,y=100)
+#caixinha 
+e_valor_despesas = Entry(frame_operacoes, width=18, justify='left', relief= 'solid' )#largura da cela
+e_valor_despesas.place(x=110,y=101)#cela criada
+
+#button imagem
+img_add_despesas = Image.open('add.png')
+img_add_despesas = img_add_despesas.resize((19,19))
+img_add_despesas = ImageTk.PhotoImage(img_add_despesas)
+
+botao_inserir_despesas = Button(frame_operacoes, image=img_add_despesas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE)
+botao_inserir_despesas .place(x=110,y=131)#button criado
+
+
+#button Excluir
+# Titulo excluir
+l_excluir= Label(frame_operacoes, text="Excluir ação", height=1, anchor=NW, font=('Ivy 10 bold'), bg=co0, fg=co5)
+l_excluir.place(x=10,y=190)
+
+#imagem
+img_delete = Image.open('delete.png')
+img_delete = img_delete.resize((19,19))
+img_delete = ImageTk.PhotoImage(img_delete)
+
+botao_deletar = Button(frame_operacoes, image=img_delete, text="Deletar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE)
+botao_deletar.place(x=110,y=190)#button criado
+ 
+
+
+
+
+
+
+
 
 
 janela.mainloop()   #chamar a tela
