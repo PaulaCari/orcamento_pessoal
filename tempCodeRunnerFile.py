@@ -1,3 +1,2 @@
-def grafico_bar():
-    lista_categorias = ['Renda', 'Despesas', 'saldo']
-    lista_valores = [3000, 2000, 6236]
+app_tabela = Label(frameMeio, text=" Tabela Receitas e Despesas", anchor=NW, font=('Verdana'), bg=co0, fg=co5)
+app_tabela.place(x=5,y=300)

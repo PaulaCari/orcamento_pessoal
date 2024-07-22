@@ -19,6 +19,11 @@ from matplotlib.ticker import FixedLocator
 from tkcalendar import Calendar, DateEntry
 from datetime import date
 
+from tkinter import messagebox
+
+#importando funções view
+from view import  inserir_categoria, ver_categoria, inserir_receitas, inserir_gastos      #view.py linha 9/17/24
+
 # Core da interfase
 co0 = "#2e2d2b"  # Preta
 co1 = "#feffff"  # branca
@@ -33,7 +38,7 @@ co9 = "#e9edf5"
 
 colors = ['#5588bb', '#66bbbb','#99bb55', '#ee9944', '#444466', '#bb5555']
 
-# tela vazia
+# tela vazia _________________________________
 janela = Tk()
 janela.title()
 janela.geometry('900x650')
@@ -44,13 +49,13 @@ style= ttk.Style(janela)
 style.theme_use("clam")
 
 
-#layout da janela
+#layout da janela_____________________________
 # criando 1ra frames dividir a tela
-frameCima = Frame(janela, width=1043, height=50, bg=co0, relief="flat") #co1
+frameCima = Frame(janela, width=1043, height=50, bg=co0, relief="flat") #altura da 1ra  linha horizontal
 frameCima.grid(row=0,column=0)
 
 # criando 2do frames dividir a tela
-frameMeio = Frame(janela, width=1043, height=345, bg=co0, pady=20, relief="raised")
+frameMeio = Frame(janela, width=1043, height=345, bg=co0, pady=20, relief="raised")# 315 altura da 2da linha horizontal ****
 frameMeio.grid(row=1,column=0, pady=1,padx=0, sticky=NSEW)
 
 # criando 3ro frames dividir a tela
@@ -58,7 +63,7 @@ frameBaixo = Frame(janela, width=1043, height=300, bg=co0, relief="flat")
 frameBaixo.grid(row=2,column=0, pady=0, padx=0, sticky=NSEW)
 
 
-#logo imagem frame e title
+#logo imagem frame e title______________________
 app_img = Image.open('logo.png')
 app_img = app_img.resize ((45,45))
 app_img = ImageTk.PhotoImage(app_img)
@@ -67,7 +72,40 @@ app_logo = Label(frameCima, image=app_img, text=" Orçamento Pessoal", width=900
 app_logo.place(x=0,y=0)
 
 
-# 2da fase text 
+#==================//interatividade nos 2 campos categoria
+#definir tree como global 
+global tree
+
+#inserir categoria
+def inserir_categoria_b():
+    nome = e_categoria.get()    #linha 350
+
+    lista_inserir =[nome]
+    for i in lista_inserir:
+        if i =='':
+            messagebox.showerror('Erro', 'Prencha todos os campos')
+            return
+      #passando a função inserir gastos presente na view  
+    inserir_categoria(lista_inserir)
+    messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
+
+    e_categoria.delete(0,'end')
+
+    #pegando os valores da categoria
+    categorias_funcao = ver_categoria()  #view.py linha 46
+    categoria =[]
+
+    for i in categorias_funcao:
+        categoria.append(i[1])
+
+    #atualizando a lista de categorias
+    combo_categoria_despesas['values']=(categoria)
+#==================//
+
+
+
+
+# 2da fase text___________________________________ 
 def porcentagem():
     label_nome = Label(frameMeio, text="Porcentagem da Receita Gasta", height=1, anchor=NW, font=('Verdana 12'), bg=co8, fg=co5)
     label_nome.place(x=7, y=5)
@@ -88,9 +126,8 @@ def porcentagem():
     label_percentagem = Label(frameMeio, text="{:.2f}%".format(valor), anchor=NW, font=('Verdana 12'), bg=co8, fg=co5)
     label_percentagem.place(x=200, y=35)
 
-###############
 
-# 2da fase grafico de barra
+# 2da fase grafico de barra______________________________
 def grafico_bar():
     lista_categorias = ['Renda', 'Despesas', 'saldo']
     lista_valores = [3000, 2000, 6236]
@@ -138,7 +175,10 @@ def grafico_bar():
 
 
 
-#Totais resumo renda, despesa , saldo
+
+
+
+#Totais resumo renda, despesa , saldo_________________________
 def  resumo():
     valor =[500,600,420]
 
@@ -164,8 +204,7 @@ def  resumo():
     l_sumario.place(x=309,y=220) 
 
 
-
-#criando 4to frame para o grafico do pizza
+#criando 4to frame para o grafico do pizza________________________
 frame_gra_pie = Frame(frameMeio, width=580, height=250, bg=co0)
 frame_gra_pie.place(x=415, y=5)
 #grafico de pizza
@@ -187,14 +226,14 @@ def grafico_pie():
     canva_categoria = FigureCanvasTkAgg(figura, frame_gra_pie) #posição do grafico dentro da janela
     canva_categoria.get_tk_widget().grid(row=0, column=0)
     
-
 porcentagem()
 grafico_bar()
 resumo()
 grafico_pie()
 
-#criando 3 frame dentro do frame baixo
-#1ro frame tablela renda tipo excel
+
+#criando dentro da framebaixo
+#1ro frame tablela renda tipo excel_________________________________
 frame_renda = Frame(frameBaixo, width=300, height=250, bg=co0)
 frame_renda.grid(row=0,column=0)
 
@@ -230,7 +269,7 @@ def mostrar_renda():
     hsb.grid(column=0, row=1, sticky='ew')
 
     hd=["center","center","center", "center"]
-    h=[30,100,100,100] #tamnaho das
+    h=[30,100,100,100] #tamnaho das celas
     n=0
 
     for col in tabela_head:
@@ -244,7 +283,7 @@ def mostrar_renda():
        
 mostrar_renda()
 
-# 2da frame
+# 2da frame______________________________________
 #calendario pip install tkcalendar
 #titulo
 L_info = Label(frame_operacoes, text="Insira novas despesas", height=1, anchor=NW, font=('Verdana 10 bold'), bg=co0, fg=co5)
@@ -260,7 +299,7 @@ categoria =[]
 for i in categoria_funcao:
     categoria.append(i[1])
 
-combo_categoria_despesas = ttk.Combobox(frame_operacoes, width=18, font=('Ivy 10'))#largura da cela
+combo_categoria_despesas = ttk.Combobox(frame_operacoes, width=12, font=('Ivy 10'))#largura da cela
 combo_categoria_despesas['values'] = (categoria)
 combo_categoria_despesas.place(x=110, y=41)#cela criada
 
@@ -301,8 +340,7 @@ botao_deletar = Button(frame_operacoes, image=img_delete, text="Deletar".upper()
 botao_deletar.place(x=110,y=190)#button criado
  
 
-
-#configuração de receitas
+#configuração de receitas____________________________________
 # 3da frame
 
 L_info = Label(frame_configuracao, text="Insira novas Receitas", height=1, anchor=NW, font=('Verdana 10 bold'), bg=co0, fg=co5)
@@ -332,36 +370,25 @@ img_add_receitas = ImageTk.PhotoImage(img_add_receitas)
 botao_inserir_receitas = Button(frame_configuracao, image=img_add_receitas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE)
 botao_inserir_receitas .place(x=110,y=111)#button criado
 
-# Titulo categoria
+
+# Operação Titulo categoria
 l_info= Label(frame_configuracao, text="Categoria", height=1, anchor=NW, font=('Ivy 10'), bg=co0, fg=co5)
 l_info.place(x=35,y=160)
-
 
 #caixinha 
 e_categoria = Entry(frame_configuracao, width=18, justify='left', relief= 'solid' )#largura da cela
 e_categoria.place(x=110,y=161)#cela criada
 
-#button adicionar
+#button inserir
 img_add_categoria = Image.open('add.png')
 img_add_categoria = img_add_categoria.resize((19,19))
 img_add_categoria = ImageTk.PhotoImage(img_add_categoria)
 
-botao_inserir_categoria = Button(frame_configuracao, image=img_add_categoria, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE)
+botao_inserir_categoria = Button(frame_configuracao,command=inserir_categoria_b, image=img_add_categoria, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE) #parte da linha 80
 botao_inserir_categoria.place(x=110,y=191)#button criado
 
-
-
- 
-
-
-
-
-
-
-
-
-
-
+#fim do layout estatico
+#=======================================================
 
 janela.mainloop()   #chamar a tela
 

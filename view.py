@@ -4,6 +4,7 @@ import sqlite3 as lite
 con = lite.connect('dados.db')
 
 # Funcação de Inserção
+
 # Operação inserir categorias
 def inserir_categoria(i):
     with con:
