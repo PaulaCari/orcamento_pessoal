@@ -1,6 +1,7 @@
 # biblioteca para fazer a interfase
 from tkinter import * 
-from tkinter import Tk, ttk
+# from tkinter import Tk, ttk
+from tkinter import Tk, StringVar, ttk
 
 #instalar  pip install pillow
 from PIL import Image, ImageTk
@@ -40,7 +41,7 @@ colors = ['#5588bb', '#66bbbb','#99bb55', '#ee9944', '#444466', '#bb5555']
 
 # tela vazia _________________________________
 janela = Tk()
-janela.title()
+janela.title("")
 janela.geometry('900x650')
 janela.configure(background=co9)
 janela.resizable(width=FALSE, height=FALSE) #bloquear maximizar
@@ -72,7 +73,7 @@ app_logo = Label(frameCima, image=app_img, text=" Orçamento Pessoal", width=900
 app_logo.place(x=0,y=0)
 
 
-#==================//interatividade nos 2 campos categoria
+#=========#########=========//interatividade nos 2 campos categoria
 #definir tree como global 
 global tree
 
@@ -100,7 +101,42 @@ def inserir_categoria_b():
 
     #atualizando a lista de categorias
     combo_categoria_despesas['values']=(categoria)
-#==================//
+
+
+#função inserir receitas
+def inserir_receitas_b():    #linha 17 view.py e inserir na linha 401 command=inserir_receitas_b
+    nome = 'Receita'
+    data = e_cal_receitas.get()  #linha 379
+    quantia = e_valor_receitas.get() #linha 388
+
+    lista_inserir = [nome, data, quantia]
+    for i in lista_inserir:
+        if i =='':
+        #  if '' in lista_inserir:
+            messagebox.showerror('Erro', 'Prencha todos os campos')
+            return
+        
+    inserir_receitas(lista_inserir) #função linha 16 view.py
+    messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
+
+    e_cal_receitas.delete(0,'end')
+    e_valor_receitas.delete(0,'end')
+
+    #atualizando dados chamnedo as funções
+    mostrar_renda()
+    porcentagem()
+    grafico_bar()
+    resumo()
+    grafico_pie()
+
+
+
+
+
+
+
+
+#===========########=======//
 
 
 
@@ -172,10 +208,6 @@ def grafico_bar():
 
     canva = FigureCanvasTkAgg(figura, frameMeio)
     canva.get_tk_widget().place(x=10, y=70)
-
-
-
-
 
 
 #Totais resumo renda, despesa , saldo_________________________
@@ -367,7 +399,7 @@ img_add_receitas = Image.open('add.png')
 img_add_receitas = img_add_receitas.resize((19,19))
 img_add_receitas = ImageTk.PhotoImage(img_add_receitas)
 
-botao_inserir_receitas = Button(frame_configuracao, image=img_add_receitas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE)
+botao_inserir_receitas = Button(frame_configuracao,command=inserir_receitas_b, image=img_add_receitas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE) #a função da linha 106
 botao_inserir_receitas .place(x=110,y=111)#button criado
 
 

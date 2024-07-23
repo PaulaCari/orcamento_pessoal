@@ -1,31 +1,33 @@
+import sys
 import sqlite3 as lite
+from datetime import datetime
+import pandas as pd
 
 # Criando conexão
 con = lite.connect('dados.db')
 
 # Funcação de Inserção
-
 # Operação inserir categorias
 def inserir_categoria(i):
     with con:
         cur = con.cursor()
         query = "INSERT INTO Categoria (nome) VALUES (?)"
-        cur.execute(query,i)
+        cur.execute(query, i)
 # inserir_categoria(["Alimentacao"])
 
 # Operação inserir receitas
 def inserir_receitas(i):
     with con:
         cur = con.cursor()
-        query = "INSERT INTO Receitas (categoria, adicionado_em,valor) VALUES (?,?,?)"
-        cur.execute(query,i)
+        query = "INSERT INTO Receitas (categoria, adicionado_em, valor) VALUES (?,?,?)"
+        cur.execute(query, i)
 
 # Operação inserir gastos
 def inserir_gastos(i):
     with con:
         cur = con.cursor()
         query = "INSERT INTO Gastos (categoria, retirado_em,valor) VALUES (?,?,?)"
-        cur.execute(query,i)
+        cur.execute(query, i)
 
 
 # Funções para deletar receitas
@@ -38,7 +40,7 @@ def deletar_receitas(i):
 def deletar_gastos(i):
     with con:
         cur = con.cursor()
-        query = "DELETE FROM Gastos WHERE id=?"
+        query = "DELETE FROM Gastos WHERE id=?" #ou Receitas?
         cur.execute(query, i)
 
 # Funções para ver dados categoria
@@ -53,7 +55,7 @@ def ver_categoria():
             lista_itens.append(l)
     return lista_itens
 
-# print(ver_categoria())
+#print(ver_categoria())
 
 # Funções para ver dados receitas
 def ver_receitas():

@@ -1,2 +1,10 @@
-app_tabela = Label(frameMeio, text=" Tabela Receitas e Despesas", anchor=NW, font=('Verdana'), bg=co0, fg=co5)
-app_tabela.place(x=5,y=300)
+def ver_receitas():
+    lista_itens = []
+    with con: 
+        cur = con.cursor()
+        cur.execute("SELECT * FROM Receitas")
+        linha = cur.fetchall()
+        for l in linha:
+            lista_itens.append(l)
+    return lista_itens
+print(ver_receitas())
