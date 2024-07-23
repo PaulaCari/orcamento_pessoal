@@ -129,15 +129,37 @@ def inserir_receitas_b():    #linha 17 view.py e inserir na linha 401 command=in
     resumo()
     grafico_pie()
 
+#funçao inserir Despesas
+def inserir_receitas_b():    #linha 17 view.py e inserir na linha 401 command=inserir_receitas_b
+    nome = combo_categoria_despesas.get()
+    data = e_cal_despesas.get()  #linha 379
+    quantia = e_valor_despesas.get() #linha 388
 
+    lista_inserir = [nome, data, quantia]
+    for i in lista_inserir:
+        if i =='':
+        #  if '' in lista_inserir:
+            messagebox.showerror('Erro', 'Prencha todos os campos')
+            return
+        
+    #chamando a função inserir despesas da view linha 26   
+    inserir_gastos(lista_inserir) 
+    messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
 
+    combo_categoria_despesas.delete(0,'end')
+    e_cal_despesas.delete(0,'end')
+    e_valor_despesas.delete(0,'end')
 
-
+   #atualizando dados chamnedo as funções
+    mostrar_renda()
+    porcentagem()
+    grafico_bar()
+    resumo()
+    grafico_pie()
 
 
 
 #===========########=======//
-
 
 
 
@@ -325,7 +347,7 @@ L_info.place(x=10,y=10)
 l_categoria = Label(frame_operacoes, text="Categoria", height=1, anchor=NW, font=('Ivy 10'), bg=co0, fg=co5)
 l_categoria.place(x=10,y=40)
 
-categoria_funcao = ['viagem' , 'comida']
+categoria_funcao = ver_categoria()#linha 48 da view.py troquie['viagem' , 'comida']
 categoria =[]
 
 for i in categoria_funcao:
@@ -354,7 +376,7 @@ img_add_despesas = Image.open('add.png')
 img_add_despesas = img_add_despesas.resize((19,19))
 img_add_despesas = ImageTk.PhotoImage(img_add_despesas)
 
-botao_inserir_despesas = Button(frame_operacoes, image=img_add_despesas, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE)
+botao_inserir_despesas = Button(frame_operacoes, image=img_add_despesas,command=inserir_receitas_b, text="Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co0, fg=co1, overrelief=RIDGE)# inserir linha 133 a função
 botao_inserir_despesas .place(x=110,y=131)#button criado
 
 
